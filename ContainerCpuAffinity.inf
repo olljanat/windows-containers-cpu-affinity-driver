@@ -1,0 +1,60 @@
+;
+; ContainerCpuAffinity
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider    = %ProviderString%
+CatalogFile = ContainerCpuAffinity.cat
+DriverVer   = 02/03/2026,1.0.0.0
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 12;
+
+; Default install sections
+[DefaultInstall.NTamd64]
+OptionDesc = %ServiceDescription%
+CopyFiles = ContainerCpuAffinity.DriverFiles1
+
+[DefaultInstall.NTamd64.Services]
+AddService = %ServiceName%,,ContainerCpuAffinity.Service
+
+; Default uninstall sections
+[DefaultUninstall.NTamd64]
+LegacyUninstall = 1
+DelFiles = ContainerCpuAffinity.DriverFiles2
+
+[DefaultUninstall.NTamd64.Services]
+DelService = %ServiceName%,0x200
+
+; Services Section
+[ContainerCpuAffinity.Service]
+DisplayName = %ServiceDescription%
+Description = %ServiceDescription%
+ServiceBinary = %12%\%DriverName%.sys
+ServiceType = 1   ; SERVICE_KERNEL_DRIVER
+StartType = 2     ; SERVICE_AUTO_START
+ErrorControl = 0  ; SERVICE_ERROR_IGNORE
+
+; Copy Files
+[ContainerCpuAffinity.DriverFiles1]
+%DriverName%.sys
+[ContainerCpuAffinity.DriverFiles2]
+%DriverName%.sys
+
+[SourceDisksFiles]
+ContainerCpuAffinity.sys = 1,,
+
+[SourceDisksNames]
+1 = %DiskId1%,,,
+
+; String Section
+[Strings]
+ProviderString = "Olli Janatuinen"
+ServiceDescription = "Container Cpu Affinity driver"
+ServiceName = "ContainerCpuAffinity"
+DriverName = "ContainerCpuAffinity"
+DiskId1 = "ContainerCpuAffinity Device Installation Disk"
