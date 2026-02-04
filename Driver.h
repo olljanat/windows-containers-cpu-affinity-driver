@@ -1,7 +1,7 @@
 #pragma once
 #include <fltKernel.h>
 
-// Set explicit prototypes for non-documented function
+// Set explicit prototypes for non-documented functions
 NTKERNELAPI PUCHAR NTAPI PsGetProcessImageFileName(
     _In_ PEPROCESS Process
 );

@@ -31,7 +31,7 @@ VOID ProcessNotifyCallback(
     PUCHAR ImageFileName = PsGetProcessImageFileName(Process);
     if (ImageFileName)
     {
-        if (_stricmp((char*)ImageFileName, "CExecSvc.exe") == 0)
+        if (_stricmp((char*)ImageFileName, "wininit.exe") == 0)
         {
             IsTarget = TRUE;
         }
@@ -50,7 +50,7 @@ VOID ProcessNotifyCallback(
             &Cid);
         if (!NT_SUCCESS(status))
         {
-            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "!!!! ContainerCpuAffinity: ZwOpenProcess of CExecSvc.exe failed: 0x%08X\n", status));
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "!!!! ContainerCpuAffinity: ZwOpenProcess of wininit.exe failed: 0x%08X\n", status));
             return;
         }
 
@@ -62,7 +62,7 @@ VOID ProcessNotifyCallback(
         ZwClose(hProcess);
         if (!NT_SUCCESS(status))
         {
-            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "!!!! ContainerCpuAffinity: Failed to set CPU affinity for CExecSvc.exe: 0x%08X\n", status));
+            KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "!!!! ContainerCpuAffinity: Failed to set CPU affinity for wininit.exe: 0x%08X\n", status));
             return;
         }
     }
